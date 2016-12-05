@@ -60,4 +60,17 @@ describe('Component: TodoApp', () => {
 
     expect(doneBefore).toBe(!doneAfter);
   }));
+
+   it('TodosComponent todo Update', inject([TodoService], (todoService: TodoService) => {
+    let component = new TodosComponent(todoService);
+    localStorage.clear();
+    let todo = {'title': 'testToggled', 'done': false};
+    let newTodo = {'title': 'UpdateTodo', 'done': false};
+    component.onTodoCreated(todo);
+    component.oldId = 0
+    component.onTodoCreated(newTodo);
+    let title  = component.todos[0].title;
+
+    expect(title).toBe('UpdateTodo');
+  }));
 });

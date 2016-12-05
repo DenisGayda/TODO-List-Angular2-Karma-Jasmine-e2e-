@@ -15,27 +15,7 @@ export class TodoService {
 	    return todos;
 	}
 
-	addTodo(todo: ITodo) {
-		let todos = this.getTodos() || [];
-		todos.push(todo);
-		localStorage.setItem('todo', JSON.stringify(todos));
-
-		return false;
-	}
-
-	deleteTodo(id: number) {
-		let todos = this.getTodos();
-    	todos.splice(id, 1);
-    	localStorage.setItem('todo', JSON.stringify(todos));
-
-    	return false;
-	}
-
-	saveTodo(id: number, todo: ITodo) {
-		let todos = this.getTodos();
-		todo.done = !todo.done;
-		todos.splice(id, 1, todo);
-
+	saveTodos(todos: ITodo[]) {
 		localStorage.setItem('todo', JSON.stringify(todos));
 
 		return false;

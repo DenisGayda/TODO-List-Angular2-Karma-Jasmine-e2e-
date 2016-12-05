@@ -10,10 +10,12 @@ export class TodoItemComponent {
 	@Input() todo: Todo;
 	@Output() toggled: EventEmitter<Todo>;
 	@Output() deleted: EventEmitter<Todo>;
+	@Output() updated: EventEmitter<Todo>;
 
 	constructor() {
 		this.deleted = new EventEmitter<Todo>();
 		this.toggled = new EventEmitter<Todo>();
+		this.updated = new EventEmitter<Todo>();
 	}
 
 	toggle() {
@@ -22,5 +24,9 @@ export class TodoItemComponent {
 
 	delete() {
 		this.deleted.emit(this.todo);
+	}
+
+	update() {
+		this.updated.emit(this.todo);
 	}
 };

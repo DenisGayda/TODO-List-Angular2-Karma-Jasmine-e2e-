@@ -12,10 +12,17 @@ import { TodoService } from './../shared/todo.service';
 export class TodosComponent implements OnInit {
 	todos: ITodo[];
 	todoService: TodoService;
+	oldId: any;
+	updateTodo: ITodo;
 
 	constructor(todoService: TodoService) {
 		this.todos = [];
 		this.todoService = todoService;
+		this.oldId = false;
+	}
+
+	changeData(todo: ITodo) {
+	    this.updateTodo = todo;
 	}
 
 	ngOnInit() {
@@ -23,20 +30,39 @@ export class TodosComponent implements OnInit {
 	}
 
 	onTodoCreated(todo: ITodo): void {
-		this.todoService.addTodo(todo);
+		if (this.oldId !== false) {
+			this.todos.splice(this.oldId, 1, todo);
+			this.oldId = false;
+		} else {
+			this.todos.push(todo);
+		}
+		this.todoService.saveTodos(this.todos);
 		this.getTodos();
 	}
 
 	onTodoToggled(todo: ITodo): void {
 		let id = this.todos.indexOf(todo);
-		this.todoService.saveTodo(id, todo);
+		todo.done = !todo.done;
+		this.todos.splice(id, 1, todo);
+		this.todoService.saveTodos(this.todos);
 		this.getTodos();
 	}
 
 	onTodoDeleted(todo: ITodo): void {
+		if (this.oldId !== false) {
+			alert('First save change todos');
+		} else {
+			let id = this.todos.indexOf(todo);
+			this.todos.splice(id, 1);
+			this.todoService.saveTodos(this.todos);
+			this.getTodos();
+		}
+	}
+
+	onTodoUpdated(todo: ITodo): void {
 		let id = this.todos.indexOf(todo);
-		this.todoService.deleteTodo(id);
-		this.getTodos();
+		this.oldId = id;
+		this.changeData(todo);
 	}
 
 	private getTodos(): void {

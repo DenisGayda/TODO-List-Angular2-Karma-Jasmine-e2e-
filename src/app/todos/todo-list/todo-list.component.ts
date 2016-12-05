@@ -14,10 +14,12 @@ export class TodoListComponent {
 	@Input() todos: ITodo[];
 	@Output() toggled: EventEmitter<ITodo>;
 	@Output() deleted: EventEmitter<ITodo>;
+	@Output() updated: EventEmitter<ITodo>;
 
 	constructor() {
 		this.toggled = new EventEmitter<ITodo>();
 		this.deleted = new EventEmitter<ITodo>();
+		this.updated = new EventEmitter<ITodo>();
 	}
 
 	get sortedTodos(): ITodo[] {
@@ -48,5 +50,9 @@ export class TodoListComponent {
 
 	onTodoDeleted(todo: ITodo): void {
 		this.deleted.emit(todo);
+	}
+
+	onTodoUpdated(todo: ITodo): void {
+		this.updated.emit(todo);
 	}
 };

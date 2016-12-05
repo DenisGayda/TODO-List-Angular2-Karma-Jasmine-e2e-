@@ -1,7 +1,5 @@
 import { NgModule, ApplicationRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TodosComponent } from './todos/todos.component';
@@ -17,9 +15,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 @NgModule({
   imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule
+    BrowserModule
   ],
   declarations: [
     AppComponent,

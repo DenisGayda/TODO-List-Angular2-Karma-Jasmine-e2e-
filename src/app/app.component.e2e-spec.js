@@ -26,4 +26,17 @@ describe('App', function () {
 
     expect(before).not.toBe(after)
   });
+
+  it('show todo updated', function () {
+    var title = element(by.id('title'));
+    title.sendKeys('my text');
+    element(by.id('add')).click();
+
+    element(by.css('.update')).click();
+    title.clear()
+    title.sendKeys('new todo');
+    element(by.id('add')).click();
+
+    expect(element(by.css('.todo-item')).getText()).toEqual('new todo')
+  });
  });
